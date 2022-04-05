@@ -1,0 +1,6 @@
+apiVersion: apps.gitlab.com/v1beta2
+kind: Runner
+metadata:
+  name: runner1
+spec:
+  replicas: 2

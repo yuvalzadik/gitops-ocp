@@ -1,0 +1,11 @@
+apiVersion: apps.gitlab.com/v1beta2
+kind: Runner
+metadata:
+  name: runner1
+  namespace: openshift-operators
+spec:
+  gitlabUrl: 'https://gitlab.com'
+  imagePullPolicy: Always
+  tags: 'openshift, test, runner'
+  token: gitlab-dev-runner-secret
+  replicas: 1
