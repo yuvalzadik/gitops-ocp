@@ -3,23 +3,23 @@ kind: ApplicationSet
 metadata:
   name: gitlabrunner-applicationset
 spec:
-  generators:
+  generators: # define the generator parameters
   - git:
-      repoURL: https://github.com/yuvalzadik/gitops-ocp.git
+      repoURL: https://github.com/yuvalzadik/gitops-ocp.git #define the git url 
       revision: master
       directories:
-      - path: gitlabrunner/overlays/*
-  template:
+      - path: gitlabrunner/overlays/* # define the path inside the git url and then run with loop on them
+  template:  # the template of the application creation
     metadata:
-      name: '{{path.basename}}-gitlabrunner'
-    spec:
+      name: '{{path.basename}}-gitlabrunner' # define the directories inside overlayes as basename and build an application to each of them with the name of {{path.basename}}-gitlabrunner which is local-cluster-gitlabrunner in our case
+    spec: 
       project: default
-      source:
-        repoURL: https://github.com/yuvalzadik/gitops-ocp.git
+      source: # dfine form where to take the application
+        repoURL: https://github.com/yuvalzadik/gitops-ocp.git 
         targetRevision: HEAD
-        path: '{{path}}'
+        path: '{{path}}' # the path is : gitlabrunner/overlays/* 
       destination:
-        name: '{{path.basename}}'
+        name: '{{path.basename}}' # in our case is the local-cluster
       syncPolicy:
         automated:
           prune: false
