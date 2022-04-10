@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: gitlabrunner-applicationset
+spec:
+  generators:
+  - git:
+      repoURL: https://github.com/yuvalzadik/gitops-ocp.git
+      revision: master
+      directories:
+      - path: gitlabrunner/overlays/*
+  template:
+    metadata:
+      name: '{{path.basename}}-gitlabrunner'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/yuvalzadik/gitops-ocp.git
+        targetRevision: HEAD
+        path: '{{path}}'
+      destination:
+        name: '{{path.basename}}'
+      syncPolicy:
+        automated:
+          prune: false
+          selfHeal: true
